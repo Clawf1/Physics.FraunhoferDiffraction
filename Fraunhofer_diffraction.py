@@ -42,6 +42,7 @@ def fraunhofer_diffraction(
     plt.colorbar()
 
     plt.savefig(name)
+    plt.show()
 
 
 if __name__ == '__main__':
@@ -66,9 +67,13 @@ if __name__ == '__main__':
     # amplitude_distribution = np.where((r1 <= 0.15) | (r2 <= 0.1) | (r3 <= 0.05) | (r4 <= 0.2), 0, 1)
 
     # одна щель
-    slit_width = 0.05
-    amplitude_distribution = np.where(np.abs(x) <= slit_width / 2, 1, 0)
-    fraunhofer_diffraction(amplitude_distribution, "single_slit", L, λ)
+    # slit_width = 0.1
+    # amplitude_distribution = np.where(np.abs(x) <= slit_width / 2, 1, 0)
+
+    rect_width = 0.1  # Ширина апертуры (м)
+    rect_height = 0.2  # Высота апертуры (м)
+    amplitude_distribution = np.where((np.abs(x) <= rect_width / 2) & (np.abs(y) <= rect_height / 2), 1, 0)
+    fraunhofer_diffraction(amplitude_distribution, "rectangular_aperture", L, λ)
     # # Создание амплитудного распределения для нескольких щелей
     # slit_width = 0.05  # Ширина каждой щели (м)
     # slit_spacing = 1  # Расстояние между центрами щелей (м)
@@ -79,6 +84,6 @@ if __name__ == '__main__':
     #     center = -slit_spacing * (num_slits // 2) + i * slit_spacing
     #     amplitude_distribution += np.where(np.abs(x - center) <= slit_width / 2, 1, 0)
 
-    r = np.sqrt(x ** 2 + y ** 2)
-    amplitude_distribution = np.where(r <= D / 2, 1, 0)
-    fraunhofer_diffraction(amplitude_distribution, "circle_hole", L, λ)
+    # r = np.sqrt(x ** 2 + y ** 2)
+    # amplitude_distribution = np.where(r <= D / 2, 1, 0)
+    # fraunhofer_diffraction(amplitude_distribution, "circle_hole", L, λ)
